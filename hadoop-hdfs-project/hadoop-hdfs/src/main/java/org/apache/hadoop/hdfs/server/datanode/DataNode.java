@@ -384,6 +384,7 @@ public class DataNode extends ReconfigurableBase
   private String dnUserName = null;
   private BlockRecoveryWorker blockRecoveryWorker;
   private ErasureCodingWorker ecWorker;
+  private StoragePolicySatisfyWorker storagePolicySatisfyWorker;
   private final Tracer tracer;
   private final TracerConfigurationManager tracerConfigurationManager;
   private static final int NUM_CORES = Runtime.getRuntime()
@@ -1420,6 +1421,8 @@ public class DataNode extends ReconfigurableBase
 
     ecWorker = new ErasureCodingWorker(getConf(), this);
     blockRecoveryWorker = new BlockRecoveryWorker(this);
+    storagePolicySatisfyWorker =
+        new StoragePolicySatisfyWorker(getConf(), this);
 
     blockPoolManager = new BlockPoolManager(this);
     blockPoolManager.refreshNamenodes(getConf());
@@ -3620,4 +3623,7 @@ public class DataNode extends ReconfigurableBase
     }
     return volumeInfoList;
   }
-}
+
+  StoragePolicySatisfyWorker getStoragePolicySatisfyWorker() {
+    return storagePolicySatisfyWorker;
+  }}
