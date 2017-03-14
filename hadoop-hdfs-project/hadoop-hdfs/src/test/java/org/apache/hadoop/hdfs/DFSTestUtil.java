@@ -2389,6 +2389,6 @@ public class DFSTestUtil {
                 + expectedStorageCount + " and actual=" + actualStorageCount);
         return expectedStorageCount == actualStorageCount;
       }
-    }, 1000, timeout);
+    }, 500, timeout);
   }
 }
