@@ -735,7 +735,7 @@ public class BlockManager implements BlockStatsMXBean {
 
   public void close() {
     if (sps != null) {
-      sps.stop(false);
+      sps.deactivate(false);
     }
     bmSafeMode.close();
     try {
@@ -750,6 +750,7 @@ public class BlockManager implements BlockStatsMXBean {
     datanodeManager.close();
     pendingReconstruction.stop();
     blocksMap.close();
+    stopSPSGracefully();
   }
 
   /** @return the datanodeManager */
@@ -5060,9 +5061,17 @@ public class BlockManager implements BlockStatsMXBean {
       LOG.info("Storage policy satisfier is already stopped.");
       return;
     }
-    sps.stop(true);
+    sps.deactivate(true);
   }
 
+  /**
+   * Timed wait to stop storage policy satisfier daemon threads.
+   */
+  public void stopSPSGracefully() {
+    if (sps != null) {
+      sps.stopGracefully();
+    }
+  }
   /**
    * @return True if storage policy satisfier running.
    */
