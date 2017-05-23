@@ -291,7 +291,7 @@ class FSDirXAttrOp {
 
       // Add inode id to movement queue if xattrs contain satisfy xattr.
       if (XATTR_SATISFY_STORAGE_POLICY.equals(xaName)) {
-        FSDirAttrOp.unprotectedSatisfyStoragePolicy(iip,
+        FSDirSatisfyStoragePolicyOp.unprotectedSatisfyStoragePolicy(iip,
             fsd.getBlockManager(), fsd);
         continue;
       }
