@@ -7763,6 +7763,9 @@ public class FSNamesystem implements Namesystem, FSNamesystemMBean,
     writeLock();
     try {
       final INode inode = dir.getInode(id);
+      if (inode == null) {
+        return;
+      }
       final XAttrFeature xaf = inode.getXAttrFeature();
       if (xaf == null) {
         return;
